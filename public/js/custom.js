@@ -24,6 +24,23 @@ $(document).ready(function() {
         }
     });
 
+    // Set inputs value from storage
+    $('.form-single').each((index, item) => {
+        if (sessionStorage.getItem($(item).attr('name'))) {
+            if (!item.value || item.value == '0') item.value = sessionStorage.getItem($(item).attr('name'));
+        }
+    });
+
+    // Set roles value from storage
+    if (sessionStorage.getItem('roles[]')) {
+        if (!$('.form-multiple').val()) {
+            $.each(sessionStorage.getItem('roles[]').split(","), function(i,e){
+                $(".form-multiple option[value='" + e + "']").prop("selected", true);
+            });
+        }
+    }
+
+
     function getUserFormData() {
         var firstName = $('#first-name').val();
         var lastName = $('#last-name').val();
@@ -39,33 +56,40 @@ $(document).ready(function() {
         };
     }
 
-    // // Create User
-    // $("#create-user").click(function () {
-    //     var data = getUserFormData();
-    //     console.log(data);
-    //     $.ajax({
-    //         url: '/users',
-    //         method: 'post',
-    //         data: {data},
-    //         success: function (res) {
-    //             alert('User created successfully')
-    //         }
-    //     })
-    // });
+    // Create User
+    $("#create-user").click(function () {
 
-    // // Edit User
-    // $("#edit-user").click(function () {
-    //     var id = $(this).attr('data-id');
-    //     var data = getUserFormData();
-    //     $.ajax({
-    //         url: '/users/' + id,
-    //         method: 'put',
-    //         data: {data},
-    //         success: function (res) {
-    //            alert('User updated successfully')
-    //         }
-    //     })
-    // });
+        sessionStorage.clear();
+
+        // For ajax
+        // var data = getUserFormData();
+        // console.log(data);
+        // $.ajax({
+        //     url: '/users',
+        //     method: 'post',
+        //     data: {data},
+        //     success: function (res) {
+        //         alert('User created successfully')
+        //     }
+        // })
+    });
+
+    // Edit User
+    $("#edit-user").click(function () {
+
+        sessionStorage.clear();
+
+        // var id = $(this).attr('data-id');
+        // var data = getUserFormData();
+        // $.ajax({
+        //     url: '/users/' + id,
+        //     method: 'put',
+        //     data: {data},
+        //     success: function (res) {
+        //        alert('User updated successfully')
+        //     }
+        // })
+    });
 
     let deletedUserId;
 
@@ -87,9 +111,9 @@ $(document).ready(function() {
     });
 
     $('.form-control').on('change keyup', function() {
+        sessionStorage.setItem($(this).attr('name'), $(this).val());
         if ($(this.parentElement).hasClass('has-error')) {
             $(this.parentElement).removeClass('has-error');
-            console.log($('.help-block', this));
             $('.help-block',this.parentElement).remove();
         }
     })
