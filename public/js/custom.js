@@ -39,34 +39,33 @@ $(document).ready(function() {
         };
     }
 
-    // Create User
-    $("#create-user").click(function () {
-        var data = getUserFormData();
-        console.log(data);
-        $.ajax({
-            url: '/users',
-            method: 'post',
-            data: {data},
-            success: function (res) {
-                alert('User created successfully')
-            }
-        })
-    });
+    // // Create User
+    // $("#create-user").click(function () {
+    //     var data = getUserFormData();
+    //     console.log(data);
+    //     $.ajax({
+    //         url: '/users',
+    //         method: 'post',
+    //         data: {data},
+    //         success: function (res) {
+    //             alert('User created successfully')
+    //         }
+    //     })
+    // });
 
-    // Edit User
-    $("#edit-user").click(function () {
-        var id = $(this).attr('data-id');
-        var data = getUserFormData();
-        $.ajax({
-            url: '/users/' + id,
-            method: 'put',
-            data: {data},
-            success: function (res) {
-               alert('User updated successfully')
-            }
-        })
-    });
-
+    // // Edit User
+    // $("#edit-user").click(function () {
+    //     var id = $(this).attr('data-id');
+    //     var data = getUserFormData();
+    //     $.ajax({
+    //         url: '/users/' + id,
+    //         method: 'put',
+    //         data: {data},
+    //         success: function (res) {
+    //            alert('User updated successfully')
+    //         }
+    //     })
+    // });
 
     let deletedUserId;
 
@@ -86,4 +85,12 @@ $(document).ready(function() {
             }
         })
     });
+
+    $('.form-control').on('change keyup', function() {
+        if ($(this.parentElement).hasClass('has-error')) {
+            $(this.parentElement).removeClass('has-error');
+            console.log($('.help-block', this));
+            $('.help-block',this.parentElement).remove();
+        }
+    })
 })

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Country;
-use App\cr;
+use App\Http\Requests\StoreUser;
+use App\Http\Requests\UpdateUser;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -38,14 +40,14 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(StoreUser $request)
     {
-        $data = $request->data;
+        $data = $request->all();
         $user = User::create($data);
         $user->roles()->attach($data['roles']);
-        return response('created', 200);
+        return redirect(route('users.index'));
     }
 
     /**
@@ -62,7 +64,6 @@ class UserController extends Controller
         {
             $user_roles[] = $role->id;
         }
-//        dd($user);
         return view('edit', compact(['user','countries', 'roles', 'user_roles']));
     }
 
@@ -73,12 +74,14 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUser $request, User $user)
     {
-        $data = $request->data;
-        $user->roles()->sync($data['roles']);
-        $user->update($data);
-        return response('updated', 200);
+        $data = $request->all();
+        if (!empty($data)) {
+            $user->roles()->sync($data['roles']);
+            $user->update($data);
+            return redirect(route('users.index'));
+        }
     }
 
     /**
