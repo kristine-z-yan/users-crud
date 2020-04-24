@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-    <a href="{{route('users.index')}}" class="btn btn-info">< Go Back</a>
+    <a href="{{route('index')}}" class="btn btn-info">< Go Back</a>
     <h2>Add New User</h2>
-    <form action="{{route('users.store')}}" method="post">
+    <form action="{{route('store')}}" method="post">
         @csrf
         <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
             <label for="first-name">First Name</label>

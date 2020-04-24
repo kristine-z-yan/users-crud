@@ -47,17 +47,18 @@ class UserController extends Controller
         $data = $request->all();
         $user = User::create($data);
         $user->roles()->attach($data['roles']);
-        return redirect(route('users.index'));
+        return redirect(route('index'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
+        $user = User::find($id);
         $countries = Country::all();
         $roles = Role::all();
         foreach($user->roles as $role)
@@ -71,27 +72,29 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateUser $request, User $user)
+    public function update(UpdateUser $request, $id)
     {
         $data = $request->all();
+        $user = user::find($id);
         if (!empty($data)) {
             $user->roles()->sync($data['roles']);
             $user->update($data);
-            return redirect(route('users.index'));
+            return redirect(route('index'));
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
+        $user = User::find($id);
         if ($user){
             $user->delete();
             return response('deleted', 200);

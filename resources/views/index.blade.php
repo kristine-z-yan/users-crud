@@ -7,8 +7,8 @@
                     <h2>Manage <b>Users</b></h2>
                 </div>
                 <div class="col-sm-6">
-                    <a href="users/create" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
-                    <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
+                    <a href="{{route('create')}}" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
+{{--                    <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>--}}
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
                         @endforeach
                     </td>
                     <td>
-                        <a href="{{ route('users.edit', $user->id)}}"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="{{ route('edit', $user->id)}}"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a href="#deleteUserModal" class="delete delete-user" data-toggle="modal" data-id="{{$user->id}}"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     </td>
                 </tr>

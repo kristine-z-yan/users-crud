@@ -65,7 +65,7 @@ $(document).ready(function() {
         // var data = getUserFormData();
         // console.log(data);
         // $.ajax({
-        //     url: '/users',
+        //     url: '/',
         //     method: 'post',
         //     data: {data},
         //     success: function (res) {
@@ -82,7 +82,7 @@ $(document).ready(function() {
         // var id = $(this).attr('data-id');
         // var data = getUserFormData();
         // $.ajax({
-        //     url: '/users/' + id,
+        //     url: '/' + id,
         //     method: 'put',
         //     data: {data},
         //     success: function (res) {
@@ -100,7 +100,7 @@ $(document).ready(function() {
     // Edit User
     $("#delete-user").click(function () {
         $.ajax({
-            url: '/users/' + deletedUserId,
+            url: '/' + deletedUserId,
             method: 'delete',
             success: function (res) {
                 alert('User deleted successfully');

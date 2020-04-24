@@ -13,5 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/users', 'UserController');
+Route::get('/', 'UserController@index')->name('index');
+Route::get('/create', 'UserController@create')->name('create');
+Route::post('/', 'UserController@store')->name('store');
+Route::get('/{id}/edit', 'UserController@edit')->name('edit');
+Route::put('/{id}', 'UserController@update')->name('update');
+Route::delete('/{id}', 'UserController@destroy');
 
